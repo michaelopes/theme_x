@@ -27,7 +27,16 @@ MaterialApp(
   home: const MyHomePage(),
 );
 ```
-
+## How to see visual result?
+For see result is simple call a dialog any page or menu that you will see the entire generated color palette
+```dart
+ showDialog(
+  context: context,
+  builder: (context) {
+    return const ThemeXDialog();
+  },
+);
+```
 ## How to get properties from ThemeX?
 
 ### Colors
@@ -131,6 +140,7 @@ final theme = ThemeX(
     colorEngine: ThemeXColorEngine.constantin, //Or ThemeXColorEngine.buckner or ThemeXColorEngine.traditional
 );
 ```
-```
+
+
 
 
