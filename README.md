@@ -1,18 +1,8 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+### ThemeX is an easy theme manipulation basied on Material Design. Only inform primary color and the ThemeX generate all color combination palette for you
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## ThemeX result
+![theme_x_palette](https://user-images.githubusercontent.com/10121156/140195240-f395fb4b-5f89-4d23-9a92-5b4963fa8773.jpg)
 
 ## Features
 
@@ -25,15 +15,44 @@ start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+ThemeX a simple usage, only informe primary color and the magic happens
 
+#### Create a ThemeX instance 
 ```dart
-const like = 'sample';
+final theme = ThemeX(
+    brightness: Brightness.light,
+    primaryColor: const Color(0xFF684437),
+    colorEngine: ThemeXColorEngine.traditional,
+    backgroundColor: Colors.white,
+);
 ```
 
-## Additional information
+#### Set theme on MaterialApp
+```dart
+MaterialApp(
+  title: 'ThemeX',
+  theme: theme.get(), //Here set theme attribute with ThemeX codes
+  home: const MyHomePage(),
+);
+```
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+## How to get properties from ThemeX?
+
+#### Get primary color
+```dart
+var primary = ThemeX.I.primary;
+```
+#### OR get variants
+```dart
+var primary50 = ThemeX.I.primary[50];
+var primary100 = ThemeX.I.primary[100];
+var primary200 = ThemeX.I.primary[200];
+var primary300 = ThemeX.I.primary[300];
+var primary400 = ThemeX.I.primary[400];
+var primary500 = ThemeX.I.primary[500];
+var primary600 = ThemeX.I.primary[600];
+var primary700 = ThemeX.I.primary[700];
+var primary800 = ThemeX.I.primary[800];
+var primary900 = ThemeX.I.primary[900];
+
+```
