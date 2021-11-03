@@ -7,7 +7,7 @@
 
 ## Usage
 
-ThemeX a simple usage, only informe primary color and the magic happens
+ThemeX a simple usage. Only inform primary color and the magic happens
 
 #### Create a ThemeX instance 
 ```dart
