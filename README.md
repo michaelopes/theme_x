@@ -133,7 +133,6 @@ Color engine generate a pallet color variants basied on Constantin Material Desi
 
 #### Pass attribute "colorEngine" on ThemeX create
 ```dart
-```dart
 final theme = ThemeX(
     brightness: Brightness.light,
     primaryColor: const Color(0xFF684437),
