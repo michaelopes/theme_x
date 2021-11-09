@@ -140,6 +140,16 @@ final theme = ThemeX(
 );
 ```
 
+#### Pass attribute "googleFont" to using GoogleFonts packages
+```dart
+final theme = ThemeX(
+    brightness: Brightness.light,
+    primaryColor: const Color(0xFF684437),
+    colorEngine: ThemeXColorEngine.constantin, 
+    googleFont: GoogleFonts.latoTextTheme, //Here pass google fonts
+);
+```
+
 
 
 

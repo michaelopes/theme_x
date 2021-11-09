@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   pigment: ^1.0.4
+  google_fonts: ^2.1.0
   theme_x:
     path: ../../theme_x
 

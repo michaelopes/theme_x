@@ -32,12 +32,12 @@ class _ThemeXDialogState extends State<ThemeXDialog> {
             Text(
               hex.toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.primary[colorNumber]!)),
             ),
             Text(
               colorNumber.toString().toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.primary[colorNumber]!)),
             ),
           ],
         ),
@@ -59,12 +59,12 @@ class _ThemeXDialogState extends State<ThemeXDialog> {
             Text(
               hex.toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.secondary[colorNumber]!)),
             ),
             Text(
               colorNumber.toString().toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.secondary[colorNumber]!)),
             ),
           ],
         ),

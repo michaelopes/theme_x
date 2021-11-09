@@ -3,7 +3,12 @@ import 'color_generator.dart';
 import 'theme_x_interface.dart';
 import 'tinycolor/tinycolor.dart';
 
-enum ThemeXColorEngine { constantin, buckner, traditional }
+enum ThemeXColorEngine { constantin, buckner, traditional, michael }
+
+typedef BackgroundResover = Color Function(
+    MaterialColor primary, MaterialColor secondary);
+
+typedef GoogleFontsResover = TextTheme Function([TextTheme? textTheme]);
 
 class ThemeX implements IThemeX {
   static final ThemeX _inst = ThemeX._internal();
@@ -13,7 +18,8 @@ class ThemeX implements IThemeX {
   factory ThemeX({
     required Brightness brightness,
     ThemeXColorEngine colorEngine = ThemeXColorEngine.constantin,
-    Color? backgroundColor,
+    BackgroundResover? backgroundColor,
+    GoogleFontsResover? googleFont,
     Color? primaryColor,
     String? fontFamily,
     Color? success,
@@ -67,6 +73,7 @@ class ThemeX implements IThemeX {
     _inst._elevatedButtonStyle = elevatedButtonStyle;
     _inst._outlinedButtonStyle = outlinedButtonStyle;
     _inst._inputDecorationTheme = inputDecorationTheme;
+    _inst._googleFont = googleFont;
 
     _inst._colorGenerator = ColorGenerator();
     var colorResult = _inst._colorGenerator.computeColors(
@@ -76,11 +83,13 @@ class ThemeX implements IThemeX {
     _inst._primary = colorResult.primary;
     _inst._secondary = colorResult.secondary;
     _inst._grey = colorResult.grey;
+
     return _inst;
   }
 
   late Brightness _brightness;
-  late Color? _backgroundColor;
+  late BackgroundResover? _backgroundColor;
+  late GoogleFontsResover? _googleFont;
   late String? _fontFamily;
   late ThemeXColorEngine _colorEngine;
   late ColorGenerator _colorGenerator;
@@ -114,24 +123,13 @@ class ThemeX implements IThemeX {
 
   @override
   ThemeData get() => ThemeData(
-        scaffoldBackgroundColor: _backgroundColor,
+        typography: Typography(),
+        scaffoldBackgroundColor: _backgroundColor?.call(primary, secondary),
         brightness: _brightness,
         fontFamily: _fontFamily,
         primarySwatch: primary,
-        backgroundColor: _backgroundColor,
-        textTheme: TextTheme(
-          caption: caption,
-          bodyText1: bodyLarge,
-          bodyText2: bodyMedium,
-          button: buttonLarge,
-          subtitle1: subtitleLarge,
-          subtitle2: subtitleMedium,
-          headline1: h1,
-          headline2: h2,
-          headline3: h3,
-          headline4: h4,
-          headline5: h5,
-        ),
+        backgroundColor: _backgroundColor?.call(primary, secondary),
+        textTheme: _googleFont != null ? _googleFont!(_textTheme) : _textTheme,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: elevatedButtonStyle,
         ),
@@ -144,13 +142,29 @@ class ThemeX implements IThemeX {
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: primary,
             brightness: _brightness,
+            accentColor: secondary,
           ).copyWith(onSurface: primary[200]),
         ),
         inputDecorationTheme: inputDecorationTheme,
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: primary,
           brightness: _brightness,
-        ).copyWith(secondary: secondary),
+          accentColor: secondary,
+        ),
+      );
+
+  TextTheme get _textTheme => TextTheme(
+        caption: caption,
+        bodyText1: bodyLarge,
+        bodyText2: bodyMedium,
+        button: buttonLarge,
+        subtitle1: subtitleLarge,
+        subtitle2: subtitleMedium,
+        headline1: h1,
+        headline2: h2,
+        headline3: h3,
+        headline4: h4,
+        headline5: h5,
       );
 
   @override
@@ -274,7 +288,10 @@ class ThemeX implements IThemeX {
 
   @override
   Color contrastColor(Color backgroundColor) {
-    return _colorGenerator.contrastColor(backgroundColor);
+    var isDark = ThemeData.estimateBrightnessForColor(backgroundColor) ==
+        Brightness.dark;
+/*    var isDark = backgroundColor.computeLuminance() > .69;*/
+    return isDark ? Colors.white : Colors.black;
   }
 
   bool get primaryIsDark => TinyColor(primary).isDark();

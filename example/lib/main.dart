@@ -7,12 +7,14 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  //const Color(0xFFF4D836),  Color(0xFF3f51b5), Color(0xFF684437)
+  //const Color(0xFFF4D836),  Color(0xFF3f51b5), Color(0xFF684437), Color(0xFF4A59EA)
   final theme = ThemeX(
     brightness: Brightness.light,
-    primaryColor: const Color(0xFF684437),
-    colorEngine: ThemeXColorEngine.traditional,
-    backgroundColor: Colors.white,
+    primaryColor: const Color(0xFFF4D836),
+    colorEngine: ThemeXColorEngine.michael,
+    backgroundColor: (p, s) {
+      return s[100]!;
+    },
   );
 
   @override
@@ -60,12 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               hex.toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.primary[colorNumber]!)),
             ),
             Text(
               colorNumber.toString().toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.primary[colorNumber]!)),
             ),
           ],
         ),
@@ -87,12 +89,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               hex.toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.secondary[colorNumber]!)),
             ),
             Text(
               colorNumber.toString().toUpperCase(),
               style: TextStyle(
-                  color: theme.contrastColor(theme.grey[colorNumber]!)),
+                  color: theme.contrastColor(theme.secondary[colorNumber]!)),
             ),
           ],
         ),
