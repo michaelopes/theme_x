@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'tinycolor/tinycolor.dart';
 
-enum ColorGeneratorAlgorithm { constantin, buckner, traditional, michael }
+enum ColorGeneratorAlgorithm { constantin, buckner, traditional, complementary }
 
 class ColorGeneratorResult {
   MaterialColor primary;
@@ -137,7 +137,7 @@ class ColorGenerator {
         secondary: secundary,
         grey: _getGrey(color, algorithm),
       );
-    } else if (algorithm == ColorGeneratorAlgorithm.michael) {
+    } else if (algorithm == ColorGeneratorAlgorithm.complementary) {
       var baseLight = TinyColor.fromString('#ffffff');
       var baseDark = multiply(color, color);
       var main = baseLight.mix(input: color, amount: 100);
@@ -158,14 +158,27 @@ class ColorGenerator {
         },
       );
 
-      var mainSecondary = main.spin(-53).lighten(3).saturate(-25);
+      //  var mainSecondary = main.spin(-53).lighten(3).saturate(-25);
+      var mainSecondary = main.spin(-89).lighten(-4).saturate(-3);
       var secundary = MaterialColor(
         int.parse("0x${mainSecondary.toHex8()}"),
         <int, Color>{
-          100: main.spin(-69).lighten(35).saturate(4).color,
+          100: main
+              .spin(-93)
+              .lighten(22)
+              .saturate(-21)
+              .color, //main.spin(-69).lighten(35).saturate(4).color,
           200: mainSecondary.color,
-          400: main.spin(-47).lighten(-9).saturate(-39).color,
-          700: main.spin(-43).lighten(-20).saturate(-33).color,
+          400: main
+              .spin(-90)
+              .lighten(-6)
+              .saturate(-29)
+              .color, //main.spin(-47).lighten(-9).saturate(-39).color,
+          700: main
+              .spin(-85)
+              .lighten(-16)
+              .saturate(-25)
+              .color, //main.spin(-43).lighten(-20).saturate(-33).color,
         },
       );
       return ColorGeneratorResult(

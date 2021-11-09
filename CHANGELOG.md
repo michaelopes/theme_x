@@ -1,3 +1,6 @@
+## 1.0.3
+* Code optimizations
+
 ## 1.0.2
 * Add google fonts option
 * Bug fixes

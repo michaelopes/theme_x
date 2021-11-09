@@ -10,8 +10,8 @@ class MyApp extends StatelessWidget {
   //const Color(0xFFF4D836),  Color(0xFF3f51b5), Color(0xFF684437), Color(0xFF4A59EA)
   final theme = ThemeX(
     brightness: Brightness.light,
-    primaryColor: const Color(0xFFF4D836),
-    colorEngine: ThemeXColorEngine.michael,
+    primaryColor: const Color(0xFF00BCD4),
+    colorEngine: ThemeXColorEngine.complementary,
     backgroundColor: (primary, secondary, grey) {
       return Colors.white;
     },

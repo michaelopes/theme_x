@@ -3,7 +3,7 @@ import 'color_generator.dart';
 import 'theme_x_interface.dart';
 import 'tinycolor/tinycolor.dart';
 
-enum ThemeXColorEngine { constantin, buckner, traditional, michael }
+enum ThemeXColorEngine { constantin, buckner, traditional, complementary }
 
 typedef BackgroundResover = Color Function(
     MaterialColor primary, MaterialColor secondary, MaterialColor grey);
