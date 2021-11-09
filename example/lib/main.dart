@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
     brightness: Brightness.light,
     primaryColor: const Color(0xFFF4D836),
     colorEngine: ThemeXColorEngine.michael,
-    backgroundColor: (p, s) {
-      return s[100]!;
+    backgroundColor: (primary, secondary, grey) {
+      return Colors.white;
     },
   );
 

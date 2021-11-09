@@ -15,7 +15,6 @@ final theme = ThemeX(
     brightness: Brightness.light,
     primaryColor: const Color(0xFF684437),
     colorEngine: ThemeXColorEngine.traditional,
-    backgroundColor: Colors.white,
 );
 ```
 
@@ -136,7 +135,7 @@ Color engine generate a pallet color variants basied on Constantin Material Desi
 final theme = ThemeX(
     brightness: Brightness.light,
     primaryColor: const Color(0xFF684437),
-    colorEngine: ThemeXColorEngine.constantin, //Or ThemeXColorEngine.buckner or ThemeXColorEngine.traditional
+    colorEngine: ThemeXColorEngine.constantin, //Or ThemeXColorEngine.buckner or ThemeXColorEngine.traditional or ThemeXColorEngine.michael
 );
 ```
 
@@ -147,6 +146,18 @@ final theme = ThemeX(
     primaryColor: const Color(0xFF684437),
     colorEngine: ThemeXColorEngine.constantin, 
     googleFont: GoogleFonts.latoTextTheme, //Here pass google fonts
+);
+```
+
+#### Pass attribute "backgroundColor" 
+```dart
+final theme = ThemeX(
+    brightness: Brightness.light,
+    primaryColor: const Color(0xFF684437),
+    colorEngine: ThemeXColorEngine.constantin, 
+    backgroundColor: (primary, secondary, grey) {
+      return Colors.white;
+    }, //Here pass background color
 );
 ```
 

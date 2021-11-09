@@ -6,7 +6,7 @@ import 'tinycolor/tinycolor.dart';
 enum ThemeXColorEngine { constantin, buckner, traditional, michael }
 
 typedef BackgroundResover = Color Function(
-    MaterialColor primary, MaterialColor secondary);
+    MaterialColor primary, MaterialColor secondary, MaterialColor grey);
 
 typedef GoogleFontsResover = TextTheme Function([TextTheme? textTheme]);
 
@@ -124,11 +124,12 @@ class ThemeX implements IThemeX {
   @override
   ThemeData get() => ThemeData(
         typography: Typography(),
-        scaffoldBackgroundColor: _backgroundColor?.call(primary, secondary),
+        scaffoldBackgroundColor:
+            _backgroundColor?.call(primary, secondary, grey),
         brightness: _brightness,
         fontFamily: _fontFamily,
         primarySwatch: primary,
-        backgroundColor: _backgroundColor?.call(primary, secondary),
+        backgroundColor: _backgroundColor?.call(primary, secondary, grey),
         textTheme: _googleFont != null ? _googleFont!(_textTheme) : _textTheme,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: elevatedButtonStyle,
