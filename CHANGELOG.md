@@ -1,3 +1,6 @@
+## 1.0.4
+* Create secondaryColor option and get setted backgroundColor
+
 ## 1.0.3
 * Code optimizations
 

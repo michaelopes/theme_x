@@ -17,10 +17,11 @@ class ThemeX implements IThemeX {
 
   factory ThemeX({
     required Brightness brightness,
-    ThemeXColorEngine colorEngine = ThemeXColorEngine.constantin,
+    ThemeXColorEngine? colorEngine = ThemeXColorEngine.constantin,
     BackgroundResover? backgroundColor,
     GoogleFontsResover? googleFont,
     Color? primaryColor,
+    Color? secondaryColor,
     String? fontFamily,
     Color? success,
     Color? danger,
@@ -78,8 +79,12 @@ class ThemeX implements IThemeX {
     _inst._colorGenerator = ColorGenerator();
     var colorResult = _inst._colorGenerator.computeColors(
       color: primaryColor ?? Colors.blue,
-      algorithm: ColorGeneratorAlgorithm.values[colorEngine.index],
+      secondaryColor: secondaryColor,
+      algorithm: colorEngine != null && secondaryColor == null
+          ? ColorGeneratorAlgorithm.values[colorEngine.index]
+          : ColorGeneratorAlgorithm.traditional,
     );
+
     _inst._primary = colorResult.primary;
     _inst._secondary = colorResult.secondary;
     _inst._grey = colorResult.grey;
@@ -91,7 +96,7 @@ class ThemeX implements IThemeX {
   late BackgroundResover? _backgroundColor;
   late GoogleFontsResover? _googleFont;
   late String? _fontFamily;
-  late ThemeXColorEngine _colorEngine;
+  late ThemeXColorEngine? _colorEngine;
   late ColorGenerator _colorGenerator;
   late MaterialColor _primary;
   late MaterialColor _secondary;
@@ -124,12 +129,11 @@ class ThemeX implements IThemeX {
   @override
   ThemeData get() => ThemeData(
         typography: Typography(),
-        scaffoldBackgroundColor:
-            _backgroundColor?.call(primary, secondary, grey),
+        scaffoldBackgroundColor: background,
         brightness: _brightness,
         fontFamily: _fontFamily,
         primarySwatch: primary,
-        backgroundColor: _backgroundColor?.call(primary, secondary, grey),
+        backgroundColor: background,
         textTheme: _googleFont != null ? _googleFont!(_textTheme) : _textTheme,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: elevatedButtonStyle,
@@ -259,6 +263,10 @@ class ThemeX implements IThemeX {
 
   @override
   MaterialColor get primary => _primary;
+
+  @override
+  Color get background =>
+      _backgroundColor?.call(primary, secondary, grey) ?? Colors.white;
 
   @override
   MaterialColor get secondary => _secondary;

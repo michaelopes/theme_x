@@ -28,6 +28,7 @@ class ColorGenerator {
 
   ColorGeneratorResult computeColors({
     required Color color,
+    Color? secondaryColor,
     ColorGeneratorAlgorithm algorithm = ColorGeneratorAlgorithm.constantin,
   }) {
     if (algorithm == ColorGeneratorAlgorithm.constantin) {
@@ -52,20 +53,20 @@ class ColorGenerator {
       );
 
       var spinColor = TinyColor.fromString('#000000');
-      var secundaryMain = baseDark
+      var secondaryMain = baseDark
           .mix(input: spinColor.color, amount: 15)
           .saturate(80)
           .lighten(55);
 
-      var secundary = MaterialColor(
-        int.parse("0x${secundaryMain.toHex8()}"),
+      var secondary = MaterialColor(
+        int.parse("0x${secondaryMain.toHex8()}"),
         <int, Color>{
           100: baseDark
               .mix(input: spinColor.color, amount: 15)
               .saturate(80)
               .lighten(65)
               .color,
-          200: secundaryMain.color,
+          200: secondaryMain.color,
           400: baseDark
               .mix(input: spinColor.color, amount: 15)
               .saturate(100)
@@ -80,7 +81,7 @@ class ColorGenerator {
       );
       return ColorGeneratorResult(
         primary: primary,
-        secondary: secundary,
+        secondary: secondary,
         grey: _getGrey(color, algorithm),
       );
     } else if (algorithm == ColorGeneratorAlgorithm.buckner) {
@@ -106,20 +107,20 @@ class ColorGenerator {
 
       var spinColor = TinyColor(color).spin(270);
 
-      var secundaryMain = baseDark
+      var secondaryMain = baseDark
           .mix(input: spinColor.color, amount: 15)
           .saturate(80)
           .lighten(36);
 
-      var secundary = MaterialColor(
-        int.parse("0x${secundaryMain.toHex8()}"),
+      var secondary = MaterialColor(
+        int.parse("0x${secondaryMain.toHex8()}"),
         <int, Color>{
           100: baseDark
               .mix(input: spinColor.color, amount: 15)
               .saturate(80)
               .lighten(48)
               .color,
-          200: secundaryMain.color,
+          200: secondaryMain.color,
           400: baseDark
               .mix(input: spinColor.color, amount: 15)
               .saturate(100)
@@ -134,7 +135,7 @@ class ColorGenerator {
       );
       return ColorGeneratorResult(
         primary: primary,
-        secondary: secundary,
+        secondary: secondary,
         grey: _getGrey(color, algorithm),
       );
     } else if (algorithm == ColorGeneratorAlgorithm.complementary) {
@@ -160,7 +161,7 @@ class ColorGenerator {
 
       //  var mainSecondary = main.spin(-53).lighten(3).saturate(-25);
       var mainSecondary = main.spin(-89).lighten(-4).saturate(-3);
-      var secundary = MaterialColor(
+      var secondary = MaterialColor(
         int.parse("0x${mainSecondary.toHex8()}"),
         <int, Color>{
           100: main
@@ -183,7 +184,7 @@ class ColorGenerator {
       );
       return ColorGeneratorResult(
         primary: primary,
-        secondary: secundary,
+        secondary: secondary,
         grey: _getGrey(color, algorithm),
       );
     } else {
@@ -203,21 +204,40 @@ class ColorGenerator {
           900: tinycolor.darken(24).color,
         },
       );
-      var mainSecondary = tinycolor.lighten(30).saturate(30);
-      var secundary = MaterialColor(
-        int.parse("0x${mainSecondary.toHex8()}"),
-        <int, Color>{
-          100: tinycolor.lighten(50).saturate(30).color,
-          200: mainSecondary.color,
-          400: tinycolor.lighten(15).saturate(15).color,
-          700: tinycolor.lighten(5).saturate(5).color,
-        },
-      );
-      return ColorGeneratorResult(
-        primary: primary,
-        secondary: secundary,
-        grey: _getGrey(color, algorithm),
-      );
+
+      if (secondaryColor == null) {
+        var mainSecondary = tinycolor.lighten(30).saturate(30);
+        var secondary = MaterialColor(
+          int.parse("0x${mainSecondary.toHex8()}"),
+          <int, Color>{
+            100: tinycolor.lighten(50).saturate(30).color,
+            200: mainSecondary.color,
+            400: tinycolor.lighten(15).saturate(15).color,
+            700: tinycolor.lighten(5).saturate(5).color,
+          },
+        );
+        return ColorGeneratorResult(
+          primary: primary,
+          secondary: secondary,
+          grey: _getGrey(color, algorithm),
+        );
+      } else {
+        var mainSecondary = TinyColor(secondaryColor);
+        var secondary = MaterialColor(
+          int.parse("0x${mainSecondary.toHex8()}"),
+          <int, Color>{
+            100: mainSecondary.lighten(20).saturate(30).color,
+            200: mainSecondary.color,
+            400: mainSecondary.lighten(-10).saturate(20).color,
+            700: mainSecondary.lighten(-20).saturate(30).color,
+          },
+        );
+        return ColorGeneratorResult(
+          primary: primary,
+          secondary: secondary,
+          grey: _getGrey(color, algorithm),
+        );
+      }
     }
   }
 

@@ -5,6 +5,7 @@ mixin ColorMixin {
   MaterialColor get secondary;
   MaterialColor get grey;
 
+  Color get background;
   Color get success;
   Color get danger;
   Color get info;
